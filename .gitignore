@@ -1,4 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
+# List all tracked files
+# git ls-tree -r HEAD --name-only
+# List all files including any deleted
+# git log --pretty=format: --name-only --diff-filter=A | sort - | sed '/^$/d'
 
 # dependencies
 /node_modules
@@ -20,5 +24,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-**/.idea/workspace.xml
-**/.idea/tasks.xml
+/.idea/workspace.xml
+/.idea/tasks.xml
