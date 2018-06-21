@@ -30,14 +30,24 @@ module.exports = {
                     presets: ["es2015"]
                 },
                 // options for the loader
+            },
+            {
+                // Disabled until I need to add CSS styling to my work again
+                // test: /\.scss$/,
+                // use: [
+                //   'style-loader',
+                //   'css-loader',
+                //   'sass-loader'
+                // ] 
             }
         ]
     },
-    // lets you precisely control what bundle information gets displayed
     devServer: {
+        contentBase: path.join(__dirname, 'public'),
         compress: true,
         hot: true,
-        stats: "minimal",
+        stats: "minimal", 
+        // lets you precisely control what bundle information gets displayed
         port: 8080
     }
 }
