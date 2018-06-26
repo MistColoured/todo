@@ -1,4 +1,5 @@
 const path = require('path');
+const PORT = process.env.PORT || 8080;
 
 module.exports = {
     entry: './app/main.js',
@@ -27,7 +28,11 @@ module.exports = {
                 // -loader suffix is no longer optional in webpack2 for clarity reasons
                 // see webpack 1 upgrade guide
                 options: {
-                    presets: ["es2015"]
+                    presets: [
+                        "env",
+                        "react",
+                        "stage-3"
+                    ]
                 },
                 // options for the loader
             },
@@ -48,6 +53,6 @@ module.exports = {
         hot: true,
         stats: "minimal", 
         // lets you precisely control what bundle information gets displayed
-        port: 8080
+        port: PORT
     }
 }
