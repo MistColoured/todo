@@ -1,9 +1,9 @@
 import React from 'react';
-import Buttons from './components/Buttons';
+import Layout from './components/Layout';
 
 const App = () => (
   <div>
-    <Buttons value={10} />
+    <Layout />
   </div>
 );
 
