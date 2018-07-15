@@ -43,12 +43,12 @@ module.exports = {
       },
       {
       // Disabled until I need to add CSS styling to my work again
-      // test: /\.scss$/,
-      // use: [
-      //   'style-loader',
-      //   'css-loader',
-      //   'sass-loader'
-      // ]
+        test: /\.s?css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          // 'sass-loader',
+        ],
       },
     ],
   },

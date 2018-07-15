@@ -1,8 +1,9 @@
 import React from 'react';
+import Buttons from './components/Buttons';
 
 const App = () => (
   <div>
-    Mike says a big Hello From React v15.4.3
+    <Buttons value={10} />
   </div>
 );
 
