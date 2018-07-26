@@ -7,7 +7,7 @@ import NewDate from './components/NewDate';
 class App extends Component {
   state = {
     currentTime: moment(),
-    dateUntil: moment('17 Sep 2018'),
+    dateUntil: moment('17 Aug 2018'),
     delta: this.getDelta,
   }
 
@@ -29,7 +29,7 @@ class App extends Component {
     const { delta, currentTime } = this.state;
     return (
       <div className="container">
-        <Time time={currentTime} message="Current time" format="HH:mm:ss" />
+        <Time time={currentTime} message="Current time" />
         <Delta time={delta} />
         <NewDate />
       </div>

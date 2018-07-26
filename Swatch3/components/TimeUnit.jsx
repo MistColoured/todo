@@ -7,7 +7,7 @@ const TimeUnit = ({ number, unit }) => (
       <h1 className="card-title">
         {Math.floor(number)}
       </h1>
-      {number === 1 ? unit : `${unit}s`}
+      {unit ? number === 1 ? unit : `${unit}s` : ''}
     </div>
   </div>
 );
@@ -19,7 +19,7 @@ TimeUnit.propTypes = {
 
 TimeUnit.defaultProps = {
   number: 0,
-  unit: 'Time Unit',
+  unit: '',
 };
 
 export default TimeUnit;
