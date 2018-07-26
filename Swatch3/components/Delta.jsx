@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import TimeUnit from './TimeUnit';
 
 const Delta = ({ time }) => (
-  <div className="card-deck text-center">
+  <div className="card-deck mb-3 text-center">
     <TimeUnit number={moment.duration(time).asDays()} unit="day" />
     <TimeUnit number={moment.duration(time).hours()} unit="hour" />
     <TimeUnit number={moment.duration(time).minutes()} unit="min" />

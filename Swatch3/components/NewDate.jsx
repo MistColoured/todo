@@ -6,8 +6,7 @@ const NewDate = () => (
   <div>
     <Toggle render={({ show, toggle, increase }) => (
       <div>
-        <button onClick={toggle}>Change Date</button>
-        <button onClick={increase}>+</button>
+        <button className="btn btn-primary mb-3" onClick={toggle}>Change Date</button>
         {show && <DateUntil />}
       </div>
     )}

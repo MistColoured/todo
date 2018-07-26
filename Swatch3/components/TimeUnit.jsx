@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TimeUnit = ({ number, unit }) => (
-  <div className="card">
+  <div className="card shadow p-3 mb-5 bg-white rounded">
     <div className="card-body">
       <h1 className="card-title">
         {Math.floor(number)}
