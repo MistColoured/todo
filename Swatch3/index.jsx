@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import Time from './components/Time';
 import Delta from './components/Delta';
-import NewDate from './components/NewDate';
+import ToggleDateInput from './components/ToggleDateInput';
 
 class App extends Component {
   state = {
@@ -28,10 +28,10 @@ class App extends Component {
   render() {
     const { delta, currentTime } = this.state;
     return (
-      <div className="container">
+      <div className="container text-center">
         <Time time={currentTime} message="Current time" />
         <Delta time={delta} />
-        <NewDate />
+        <ToggleDateInput />
       </div>
     );
   }
