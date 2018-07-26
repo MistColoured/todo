@@ -4,7 +4,7 @@ import WebFont from 'webfontloader';
 import App from './Swatch3';
 
 // import 'semantic-ui-css/semantic.min.css';
-// import './Swatch3/styles/styles.css';
+import './Swatch3/styles/style.scss';
 
 WebFont.load({
   google: {
