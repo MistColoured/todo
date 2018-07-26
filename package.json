@@ -34,15 +34,10 @@
   },
   "dependencies": {
     "build": "^0.1.4",
-    "bulma": "^0.7.1",
     "moment": "^2.22.2",
-    "moment-timezone": "^0.5.21",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "semantic-ui-react": "^0.82.0",
-    "styled-components": "^3.3.3",
-    "webfontloader": "^1.6.28",
-    "yarn": "^1.7.0"
+    "webfontloader": "^1.6.28"
   }
 }
