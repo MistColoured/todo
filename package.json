@@ -26,16 +26,23 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
+    "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.4",
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
+    "build": "^0.1.4",
+    "bulma": "^0.7.1",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "semantic-ui-css": "^2.3.3",
-    "semantic-ui-react": "^0.82.0"
+    "semantic-ui-react": "^0.82.0",
+    "styled-components": "^3.3.3",
+    "webfontloader": "^1.6.28",
+    "yarn": "^1.7.0"
   }
 }
