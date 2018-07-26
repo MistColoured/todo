@@ -8,8 +8,6 @@ export default class DateUntil extends Component {
     return (
       <div>
         <Input />
-
-
       </div>
     );
   }

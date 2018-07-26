@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-// import { Form, Button, Checkbox } from 'semantic-ui-react';
 
 export default class Input extends Component {
   state = {
