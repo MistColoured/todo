@@ -1,10 +1,40 @@
-import React from 'react';
-import Layout from './components/Layout';
+import React, { Component } from 'react';
+import moment from 'moment';
+import Time from './components/Time';
+import Delta from './components/Delta';
+import NewDate from './components/NewDate';
 
-const App = () => (
-  <div>
-    <Layout />
-  </div>
-);
+class App extends Component {
+  state = {
+    currentTime: moment(),
+    dateUntil: moment('17 Sep 2018'),
+    delta: this.getDelta,
+  }
+
+  componentDidMount = () => {
+    this.timerId = setInterval(() => {
+      this.setState({
+        currentTime: moment(),
+        delta: this.getDelta(),
+      });
+    }, 1000);
+  }
+
+  getDelta = () => {
+    const { currentTime, dateUntil } = this.state;
+    return dateUntil.diff(currentTime);
+  }
+
+  render() {
+    const { delta, currentTime } = this.state;
+    return (
+      <div className="container">
+        <Time time={currentTime} message="Current time" format="HH:mm:ss" />
+        <Delta time={delta} />
+        <NewDate />
+      </div>
+    );
+  }
+}
 
 export default App;
