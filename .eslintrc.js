@@ -20,6 +20,7 @@ module.exports = {
     'react/jsx-one-expression-per-line': 'off',
     'react/button-has-type': 'off',
     // Permanent preferences
-    'no-nested-ternary': 'off'
+    'no-nested-ternary': 'off',
+    'no-console': 'off',
   }
 }
