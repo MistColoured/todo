@@ -1,20 +1,25 @@
-import { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 
-export default class Modal extends Component {
-  el = document.createElement('div')
+const Modal = () => (
+  <div className="modal" tabIndex="-1" role="dialog">
+    <div className="modal-dialog" role="document">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">Select new date.</h5>
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div className="modal-body">
+          Pick a Date
+        </div>
+        <div className="modal-footer">
+          <button type="button" className="btn btn-primary">Add Date</button>
+          <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
-  // const modalRoot = document.getElementById('modal-root')
-  componentDidMount = () => {
-    this.modalRoot.appendChild(this.el);
-  }
-
-  componentWillUnmount = () => {
-    this.modalRoot.removeChild(this.el);
-  }
-
-  render() {
-    const { children } = this.props;
-    return ReactDOM.createPortal(children, this.el);
-  }
-}
+export default Modal;
