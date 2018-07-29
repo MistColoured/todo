@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import Time from './components/Time';
 import OffsetList from './components/OffsetList';
-import ToggleDateInput from './components/ToggleDateInput';
+import ToggleDatePicker from './components/ToggleDatePicker';
 
 class App extends Component {
   state = {
@@ -24,13 +24,19 @@ class App extends Component {
     }, 1000);
   }
 
+  toggleDatePicker = () => {
+    this.setState(prevState => ({
+      showDatePicker: !prevState.showDatePicker,
+    }));
+  }
+
   render() {
     const { eventDates, currentTime } = this.state;
     return (
       <div className="container text-center">
+        <ToggleDatePicker />
         <Time time={currentTime} message="Current time" />
         <OffsetList offsets={eventDates} current={currentTime} />
-        {/* <ToggleDateInput /> */}
       </div>
     );
   }
