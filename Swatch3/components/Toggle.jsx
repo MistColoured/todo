@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 
 // TODO Work out why object in PropTypes is forbidden.
 export default class Toggle extends Component {
+  static propTypes = {
+    render: PropTypes.object,
+  };
+
+  static defaultProps = {
+    render: {},
+  };
+
   state = {
     show: false,
   }
@@ -26,11 +34,3 @@ export default class Toggle extends Component {
     );
   }
 }
-
-Toggle.propTypes = {
-  render: PropTypes.object,
-};
-
-Toggle.defaultProps = {
-  render: {},
-};
