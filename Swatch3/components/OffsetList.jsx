@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Offset from './Offset';
 
@@ -18,5 +19,16 @@ class OffsetList extends Component {
     );
   }
 }
+
+OffsetList.propTypes = {
+  offsets: PropTypes.arrayOf(Object),
+  // TODO: Check if this should be PropTypes.string or not.
+  currentTime: PropTypes.objectOf(PropTypes.string),
+};
+
+OffsetList.defaultProps = {
+  offsets: [{}],
+  currentTime: {},
+};
 
 export default OffsetList;
