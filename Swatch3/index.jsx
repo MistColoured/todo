@@ -13,7 +13,6 @@ class App extends Component {
     currentTime: moment(),
     eventDates: [],
     inputDate: '',
-    // delta: moment('17 August 2018').diff(moment()),
   }
 
   componentDidMount = () => {
@@ -39,11 +38,19 @@ class App extends Component {
   }
 
   handleFormSubmit = () => {
-    const { inputDate } = this.state;
-    console.log('Form submitted', inputDate);
-    // this.setState({
-    //   inputDate: '',
-    // });
+    const { inputDate, eventDates } = this.state;
+    const eventDate = { eventDate: moment(inputDate) };
+    // console.log('Form submitted', inputDate);
+    axios.post(this.myUrl, eventDate)
+      .then((res) => {
+        eventDates.push(res.data);
+        this.setState({
+          eventDates,
+        });
+      });
+    this.setState({
+      inputDate: '',
+    });
   }
 
   render() {
