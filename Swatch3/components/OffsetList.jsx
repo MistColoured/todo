@@ -12,7 +12,7 @@ class OffsetList extends Component {
     return (
       <div>{
         offsets.map(elem => (
-          <Offset time={this.getDelta(moment(elem.time), currentTime)} />
+          <Offset key={elem.id} time={this.getDelta(moment(elem.eventDate), currentTime)} />
         ))
       }
       </div>
