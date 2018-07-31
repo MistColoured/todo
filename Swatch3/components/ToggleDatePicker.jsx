@@ -12,7 +12,7 @@ const ToggleDatePicker = () => (
         {show && (
           <ModalPortal>
             <div className="modal">
-              <Modal />
+              <Modal toggle={toggle} />
             </div>
           </ModalPortal>
         )}

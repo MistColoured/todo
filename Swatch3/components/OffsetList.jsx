@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import Offset from './Offset';
 
@@ -11,7 +12,7 @@ class OffsetList extends Component {
     return (
       <div>{
         offsets.map(elem => (
-          <Offset time={this.getDelta(elem, currentTime)} />
+          <Offset time={this.getDelta(moment(elem.time), currentTime)} />
         ))
       }
       </div>
