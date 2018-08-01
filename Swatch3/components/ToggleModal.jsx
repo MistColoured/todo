@@ -4,16 +4,14 @@ import Toggle from './Toggle';
 import ModalPortal from './ModalPortal';
 import Modal from './Modal';
 
-const ToggleDatePicker = () => (
+const ToggleModal = () => (
   <div>
     <Toggle render={({ show, toggle }) => (
       <div>
         <button className="btn btn-primary m-4" onClick={toggle}>Add New Date</button>
         {show && (
           <ModalPortal>
-            <div className="modal">
-              <Modal toggle={toggle} />
-            </div>
+            <Modal toggle={toggle} />
           </ModalPortal>
         )}
       </div>
@@ -22,4 +20,4 @@ const ToggleDatePicker = () => (
   </div>
 );
 
-export default ToggleDatePicker;
+export default ToggleModal;
