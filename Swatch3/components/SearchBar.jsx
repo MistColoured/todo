@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
-// import icons from 'glyphicons';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-
-// const element = <FontAwesomeIcon icon={faCoffee} />;
 
 export default class SearchBar extends Component {
   handleInputChange = (e) => {
@@ -25,13 +22,11 @@ export default class SearchBar extends Component {
     return (
       <div>
         <form
-          className="form-inline"
+          className="form-inline my-4"
           onSubmit={this.handleFormSubmit}
           autoComplete="off"
         >
-
-
-          <div className="form-group col-md-4">
+          <div className="form-group">
             <label htmlFor="eventName" className="sr-only">Event name</label>
             <input
               value={inputDate}
@@ -42,7 +37,7 @@ export default class SearchBar extends Component {
               placeholder="Name of event"
             />
           </div>
-          <div className="form-group col-md-4">
+          <div className="form-group">
             <label htmlFor="dateInput" className="sr-only">Date Input</label>
             <div className="input-group">
               <input
@@ -53,16 +48,17 @@ export default class SearchBar extends Component {
                 id="dateInput"
                 placeholder="Enter date"
               />
-
+              <div className="input-group-btn">
+                <button
+                  disabled={!moment(inputDate).isValid()}
+                  className="btn btn-primary"
+                  type="submit"
+                >
+                  <i className="fas fa-check" />
+                </button>
+              </div>
             </div>
           </div>
-          <button
-            disabled={!moment(inputDate).isValid()}
-            type="submit"
-            className="btn btn-primary"
-          >
-        Submit
-          </button>
 
         </form>
       </div>
