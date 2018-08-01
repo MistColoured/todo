@@ -11,10 +11,10 @@ module.exports = {
   "parserOptions": {
     "ecmaVersion": 2018,
     "ecmaFeatures": {
-        "jsx": true,
-        "impliedStrict": true,
+      "jsx": true,
+      "impliedStrict": true,
     }
-},
+  },
   'rules': {
     // Disabled just while learning
     'react/jsx-one-expression-per-line': 'off',
@@ -22,5 +22,6 @@ module.exports = {
     // Permanent preferences
     'no-nested-ternary': 'off',
     'no-console': 'off',
+    'jsx-a11y/label-has-for': 'off',
   }
 }
