@@ -6,7 +6,7 @@ import OffsetList from './components/OffsetList';
 import SearchBar from './components/SearchBar';
 
 class App extends Component {
-  myUrl = 'https://5b5f35c58e9f160014b88dce.mockapi.io/api/eventDates'
+  myUrl = 'https://5b5f35c58e9f160014b88dce.mockapi.io/api/events'
 
   state = {
     currentTime: moment(),
@@ -18,13 +18,12 @@ class App extends Component {
   componentDidMount = () => {
     axios.get(this.myUrl)
       .then((res) => {
+        console.log(res.data);
         this.setState({
           eventDates: res.data,
         });
       });
     this.timerId = setInterval(() => {
-      const { eventInput, dateInput } = this.state;
-      console.log('in timer', eventInput, dateInput);
       this.setState({
         currentTime: moment(),
       });
@@ -54,6 +53,10 @@ class App extends Component {
       });
   }
 
+  handleDeleteEvent = ({ id }) => {
+    console.log('Delete', id);
+  }
+
   render() {
     const {
       eventDates,
@@ -70,7 +73,11 @@ class App extends Component {
           eventInput={eventInput}
         />
         <Time time={currentTime} message="Current time" />
-        <OffsetList offsets={eventDates} current={currentTime} />
+        <OffsetList
+          offsets={eventDates}
+          current={currentTime}
+          onDelete={this.handleDeleteEvent}
+        />
       </div>
     );
   }
