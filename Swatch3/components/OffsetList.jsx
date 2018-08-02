@@ -8,11 +8,11 @@ class OffsetList extends Component {
   getDelta = (offset, current) => offset.diff(current)
 
   render() {
-    const { offsets, currentTime } = this.props;
+    const { offsets, currentTime, onDelete } = this.props;
     return (
       <div>{
         offsets.map(elem => (
-          <Offset key={elem.id} time={this.getDelta(moment(elem.eventDate), currentTime)} />
+          <Offset element={elem} time={this.getDelta(moment(elem.eventDate), currentTime)} onDelete={onDelete} />
         ))
       }
       </div>
