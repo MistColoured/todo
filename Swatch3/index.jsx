@@ -11,58 +11,63 @@ class App extends Component {
   state = {
     currentTime: moment(),
     eventDates: [],
-    inputDate: '',
+    eventInput: '',
+    dateInput: '',
   }
 
   componentDidMount = () => {
     axios.get(this.myUrl)
       .then((res) => {
-        console.log(res);
         this.setState({
           eventDates: res.data,
         });
       });
     this.timerId = setInterval(() => {
+      const { eventInput, dateInput } = this.state;
+      console.log('in timer', eventInput, dateInput);
       this.setState({
         currentTime: moment(),
       });
     }, 1000);
   }
 
-  handleInputChange = (inputDate) => {
-    console.log('Change');
+  handleInputChange = (inputText, id) => {
     this.setState({
-      inputDate,
+      [id]: inputText,
     });
   }
 
   handleFormSubmit = () => {
-    const { inputDate, eventDates } = this.state;
-    const eventDate = { eventDate: moment(inputDate) };
-    axios.post(this.myUrl, eventDate)
+    const { dateInput, eventInput, eventDates } = this.state;
+    const eventObject = {
+      eventDate: moment(dateInput),
+      eventName: eventInput,
+    };
+    axios.post(this.myUrl, eventObject)
       .then((res) => {
         eventDates.push(res.data);
         this.setState({
           eventDates,
+          dateInput: '',
+          eventInput: '',
         });
       });
-    this.setState({
-      inputDate: '',
-    });
   }
 
   render() {
     const {
       eventDates,
       currentTime,
-      inputDate,
+      dateInput,
+      eventInput,
     } = this.state;
     return (
       <div className="container text-center">
         <SearchBar
           onInputChange={this.handleInputChange}
           onFormSubmit={this.handleFormSubmit}
-          inputDate={inputDate}
+          dateInput={dateInput}
+          eventInput={eventInput}
         />
         <Time time={currentTime} message="Current time" />
         <OffsetList offsets={eventDates} current={currentTime} />

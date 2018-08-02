@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
+import Input from './Input';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export default class SearchBar extends Component {
   handleInputChange = (e) => {
     const { onInputChange } = this.props;
-    onInputChange(e.target.value);
+    onInputChange(e.target.value, e.target.id);
   }
 
   handleFormSubmit = (e) => {
@@ -18,7 +19,8 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    const { inputDate } = this.props;
+    const { dateInput, eventInput } = this.props;
+    const disabled = !moment(dateInput).isValid();
     return (
       <div>
         <form
@@ -26,42 +28,31 @@ export default class SearchBar extends Component {
           onSubmit={this.handleFormSubmit}
           autoComplete="off"
         >
-          <div className="form-group">
-            <label htmlFor="eventName" className="sr-only">Event name</label>
-            <input
-              value={inputDate}
-              onChange={this.handleInputChange}
-              type="text"
-              className="form-control"
-              id="eventName"
-              placeholder="Name of event"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="dateInput" className="sr-only">Date Input</label>
-            <div className="input-group">
-              <input
-                value={inputDate}
-                onChange={this.handleInputChange}
-                type="text"
-                className="form-control"
-                id="dateInput"
-                placeholder="Enter date"
-              />
-              <div className="input-group-btn">
-                <button
-                  disabled={!moment(inputDate).isValid()}
-                  className="btn btn-primary"
-                  type="submit"
-                >
-                  <i className="fas fa-check" />
-                </button>
-              </div>
-            </div>
-          </div>
 
+          <Input
+            label="Event Input"
+            inputText={eventInput}
+            onChange={this.handleInputChange}
+            id="eventInput"
+            placeholder="Name of event"
+          />
+          <Input
+            label="Date Input"
+            inputText={dateInput}
+            onChange={this.handleInputChange}
+            id="dateInput"
+            placeholder="Enter date"
+          />
+          <button
+            disabled={disabled}
+            className={disabled ? 'btn btn-danger' : 'btn btn-primary'}
+            type="submit"
+          >
+            <i className={disabled ? 'fas fa-times' : 'fas fa-check'} />
+          </button>
         </form>
       </div>
+
     );
   }
 }
@@ -69,9 +60,11 @@ export default class SearchBar extends Component {
 SearchBar.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
-  inputDate: PropTypes.string,
+  dateInput: PropTypes.string,
+  eventInput: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
-  inputDate: '',
+  dateInput: '',
+  eventInput: '',
 };
