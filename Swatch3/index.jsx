@@ -53,7 +53,7 @@ class App extends Component {
       });
   }
 
-  handleDeleteEvent = ({ id }) => {
+  handleDeleteEvent = (id) => {
     const { eventDates } = this.state;
     const remaining = eventDates.filter(
       event => event.id !== id,
