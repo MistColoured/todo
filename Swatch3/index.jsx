@@ -54,7 +54,16 @@ class App extends Component {
   }
 
   handleDeleteEvent = ({ id }) => {
-    console.log('Delete', id);
+    const { eventDates } = this.state;
+    const remaining = eventDates.filter(
+      event => event.id !== id,
+    );
+    axios.delete(`${this.myUrl}/${id}`)
+      .then(() => {
+        this.setState({
+          eventDates: remaining,
+        });
+      });
   }
 
   render() {

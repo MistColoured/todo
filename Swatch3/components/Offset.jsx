@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 
 import TimeUnit from './TimeUnit';
 
-const Offset = ({ time, element: { eventName, eventDate, id }, onDelete }) => (
+// TODO Add a destructured PropType for the elem object.
+const Offset = ({ time, item: { eventName, eventDate, id }, onDelete }) => (
   <div className="container text-center">
     <p>
       {eventName} (
       {moment(eventDate).format('ddd, D MMMM')})
-      <button onClick={onDelete('4')} className="btn btn-danger">Delete</button>
+      <button id={id} onClick={() => onDelete(id = { id })} className="btn btn-danger">Delete</button>
     </p>
     <div className="card-deck mb-3 text-center">
       <TimeUnit number={moment.duration(time).asDays()} unit="day" />

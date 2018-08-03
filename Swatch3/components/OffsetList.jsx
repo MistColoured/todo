@@ -11,8 +11,13 @@ class OffsetList extends Component {
     const { offsets, currentTime, onDelete } = this.props;
     return (
       <div>{
-        offsets.map(elem => (
-          <Offset element={elem} time={this.getDelta(moment(elem.eventDate), currentTime)} onDelete={onDelete} />
+        offsets.map(item => (
+          <Offset
+            key={item.id}
+            item={item}
+            onDelete={onDelete}
+            time={this.getDelta(moment(item.eventDate), currentTime)}
+          />
         ))
       }
       </div>
