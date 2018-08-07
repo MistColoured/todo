@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
@@ -26,7 +25,7 @@ Offset.propTypes = {
   item: PropTypes.shape({
     eventName: PropTypes.string,
     eventDate: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.string,
   }),
   onDelete: PropTypes.func,
 };
@@ -36,7 +35,7 @@ Offset.defaultProps = {
   item: PropTypes.shape({
     eventName: '',
     eventDate: '',
-    id: 0,
+    id: '',
   }),
   onDelete() {},
 };

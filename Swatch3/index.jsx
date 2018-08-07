@@ -74,7 +74,7 @@ class App extends Component {
       eventInput,
     } = this.state;
     return (
-      <div className="container text-center">
+      <div className="container-fluid text-center">
         <SearchBar
           onInputChange={this.handleInputChange}
           onFormSubmit={this.handleFormSubmit}
