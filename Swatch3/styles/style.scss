@@ -4,7 +4,7 @@
 //   padding:0; 
 //   height:100%; 
 // }
-body { padding-bottom: 70px; }
+
 // * {
 //   font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 //   font-size: 12vw;
@@ -13,26 +13,50 @@ body { padding-bottom: 70px; }
 // font-size: 8vw;
 // }
 
-#app-root {
-  // height: 100vh;
-  // width: 100vw;
-  // background: lightblue;
-  // overflow: hidden;
+.header {
+  height: 6vh;
+  background-color: white;
 }
 
-.form-inline .form-group input {
-  width:530px;
+.wrapper {
+  display: grid;
+  height: 86vh;
+  overflow: auto;
+  background-image: url(../images/season-.jpg);
 }
-#modal-root {
-  position: relative;
-  z-index: 999;
+
+.footer {
+  display: flex;
+  height: 8vh;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: flex-end;
 }
+
+.flex-item {
+  margin: 6px;
+  font-style: normal;
+}
+
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+// .form-inline .form-group input {
+//   width:530px;
+// }
+// #modal-root {
+//   position: relative;
+//   z-index: 999;
+// }
 
 .fa-facebook, .fa-facebook-square, .fa-facebook-f {
-  color: #3b5998
+  color: #3b5998  // Official colour
 }
 .fa-twitter, .fa-twitter-square {
-  color: #00aced
+  color: #1da1f2
 }
 .fa-google-plus, .fa-google-plus-square {
   color: #dd4b39
@@ -52,23 +76,23 @@ body { padding-bottom: 70px; }
 .fa-vimeo-square {
   color: #aad450
 }
-.fa-pinterest, .fa-pinterest-square, .fa-pinterest-p {
-  color: #cb2027
-}
 .fa-linkedin, .fa-linkedin-square {
-  color: #007bb6
+  color: #0077b5; // Official colour
 }
 .fa-instagram {
   color: #3f729b;
+}
+.fa-pinterest, .fa-pinterest-square, .fa-pinterest-p {
+  color: #bd081c; // Official colour
 }
 .fa-spotify {
   color: #1ED760;
 }
 .fa-twitch {
-  color: #6441a4;
+  color: #6441a4; 
 }
 .fa-github {
-  color: #000000
+  color: #211f1f // Official colour
 }
 .fa-reddit {
   color: #FF5700; // Official colour
@@ -76,17 +100,17 @@ body { padding-bottom: 70px; }
 .fa-dribbble {
   color: #ea4c89; // Official colour
 }
-.fa-stack-overflow {
-  color: #f48024;
+.fa-stack-overflow { 
+  color: #f48024; // Official colour
 }
-.modal {
-  background-color: rgba(0,0,0,0.5);
-  position: fixed;
-  height: 50%;
-  width: 50%;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// .modal {
+//   background-color: rgba(0,0,0,0.5);
+//   position: fixed;
+//   height: 50%;
+//   width: 50%;
+//   top: 0;
+//   left: 0;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }

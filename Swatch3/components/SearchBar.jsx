@@ -24,7 +24,7 @@ export default class SearchBar extends Component {
     return (
       <div>
         <form
-          className="form-inline my-4"
+          className="form-inline"
           onSubmit={this.handleFormSubmit}
           autoComplete="off"
         >
@@ -41,7 +41,7 @@ export default class SearchBar extends Component {
             inputText={dateInput}
             onChange={this.handleInputChange}
             id="dateInput"
-            placeholder="Enter date"
+            placeholder="dd mmm yyyy"
           />
           <button
             disabled={disabled}

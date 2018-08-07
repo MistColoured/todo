@@ -4,6 +4,7 @@ import axios from 'axios';
 import Time from './components/Time';
 import OffsetList from './components/OffsetList';
 import SearchBar from './components/SearchBar';
+import Footer from './components/Footer';
 
 class App extends Component {
   myUrl = 'https://5b5f35c58e9f160014b88dce.mockapi.io/api/events'
@@ -74,20 +75,28 @@ class App extends Component {
       eventInput,
     } = this.state;
     return (
-      <div className="container-fluid text-center">
-        <SearchBar
-          onInputChange={this.handleInputChange}
-          onFormSubmit={this.handleFormSubmit}
-          dateInput={dateInput}
-          eventInput={eventInput}
-        />
-        <Time time={currentTime} message="Current time" />
-        <OffsetList
-          offsets={eventDates}
-          current={currentTime}
-          onDelete={this.handleDeleteEvent}
-        />
+      <div className="container-fluid">
+        <div className="header">
+          <SearchBar
+            onInputChange={this.handleInputChange}
+            onFormSubmit={this.handleFormSubmit}
+            dateInput={dateInput}
+            eventInput={eventInput}
+          />
+        </div>
+        <div className="wrapper">
+          <Time time={currentTime} message="Current time" />
+          <OffsetList
+            offsets={eventDates}
+            current={currentTime}
+            onDelete={this.handleDeleteEvent}
+          />
+        </div>
+        <div className="footer">
+          <Footer />
+        </div>
       </div>
+
     );
   }
 }
