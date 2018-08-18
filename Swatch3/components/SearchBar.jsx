@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import moment from 'moment';
 import Input from './Input';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export default class SearchBar extends Component {
   handleInputChange = (e) => {
@@ -33,14 +31,14 @@ export default class SearchBar extends Component {
             label="Event Input"
             inputText={eventInput}
             onChange={this.handleInputChange}
-            id="eventInput"
+            id="event"
             placeholder="Name of event"
           />
           <Input
             label="Date Input"
             inputText={dateInput}
             onChange={this.handleInputChange}
-            id="dateInput"
+            id="date"
             placeholder="dd mmm yyyy"
           />
           <button
