@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 
 import TimeUnit from './TimeUnit';
 
-const Offset = ({ time, item: { eventName, eventDate, id }, onDelete }) => (
+const Event = ({ time, event: { date, event, id }, onDelete }) => (
   <div className="container text-center">
     <p>
-      {eventName} (
-      {moment(eventDate).format('ddd, D MMMM')})
+      {event} ({moment(date).format('ddd, D MMMM YYYY')})
       <button id={id} onClick={() => onDelete(id)} className="btn btn-danger">Delete</button>
     </p>
     <div className="card-deck mb-3 text-center">
@@ -20,23 +19,23 @@ const Offset = ({ time, item: { eventName, eventDate, id }, onDelete }) => (
   </div>
 );
 
-Offset.propTypes = {
+Event.propTypes = {
   time: PropTypes.number,
-  item: PropTypes.shape({
-    eventName: PropTypes.string,
-    eventDate: PropTypes.string,
+  event: PropTypes.shape({
+    event: PropTypes.string,
+    date: PropTypes.string,
     id: PropTypes.string,
   }),
   onDelete: PropTypes.func,
 };
 
-Offset.defaultProps = {
+Event.defaultProps = {
   time: 0,
-  item: PropTypes.shape({
-    eventName: '',
-    eventDate: '',
+  event: PropTypes.shape({
+    event: '',
+    date: '',
     id: '',
   }),
   onDelete() {},
 };
-export default Offset;
+export default Event;
