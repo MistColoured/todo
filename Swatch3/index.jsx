@@ -8,8 +8,6 @@ import Footer from './components/Footer';
 import firebase from './components/firebase';
 
 class App extends Component {
-  myUrl = 'https://5b5f35c58e9f160014b88dce.mockapi.io/api/events'
-
   state = {
     currentTime: moment(),
     eventList: [],
@@ -72,9 +70,6 @@ class App extends Component {
           event: '',
         });
       });
-
-
-    axios.post(this.myUrl, eventObjectWrapper);
   }
 
   handleDeleteEvent = (id) => {
