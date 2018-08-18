@@ -2,28 +2,40 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import Time from './components/Time';
-import OffsetList from './components/OffsetList';
+import EventList from './components/EventList';
 import SearchBar from './components/SearchBar';
 import Footer from './components/Footer';
+import firebase from './components/firebase';
 
 class App extends Component {
   myUrl = 'https://5b5f35c58e9f160014b88dce.mockapi.io/api/events'
 
   state = {
     currentTime: moment(),
-    eventDates: [],
-    eventInput: '',
-    dateInput: '',
+    eventList: [],
+    event: '',
+    date: '',
   }
 
   componentDidMount = () => {
-    axios.get(this.myUrl)
-      .then((res) => {
-        console.log(res.data);
-        this.setState({
-          eventDates: res.data,
+    const eventRef = firebase.database().ref('eventList');
+    eventRef.on('value', (snapshot) => {
+      const newState = [];
+      if (snapshot.exists()) {
+        const items = snapshot.val();
+        Object.entries(items).forEach(([key, val]) => {
+          newState.push({
+            id: key,
+            event: val.event,
+            date: val.date,
+          });
         });
+      }
+      this.setState({
+        eventList: newState,
       });
+    });
+
     this.timerId = setInterval(() => {
       this.setState({
         currentTime: moment(),
@@ -38,59 +50,80 @@ class App extends Component {
   }
 
   handleFormSubmit = () => {
-    const { dateInput, eventInput, eventDates } = this.state;
-    const eventObject = {
-      eventDate: moment(dateInput),
-      eventName: eventInput,
+    const { date, event, eventList } = this.state;
+    const newPostKey = firebase.database().ref('eventList').push().key;
+    const postObject = {
+      date,
+      event,
     };
-    axios.post(this.myUrl, eventObject)
-      .then((res) => {
-        eventDates.push(res.data);
+    const eventObjectWrapper = {};
+    eventObjectWrapper[newPostKey] = postObject;
+
+    firebase.database().ref('eventList').update(eventObjectWrapper)
+      .then(() => {
+        eventList.push({
+          id: newPostKey,
+          date,
+          event,
+        });
         this.setState({
-          eventDates,
-          dateInput: '',
-          eventInput: '',
+          eventList,
+          date: '',
+          event: '',
         });
       });
+
+
+    axios.post(this.myUrl, eventObjectWrapper);
   }
 
   handleDeleteEvent = (id) => {
-    const { eventDates } = this.state;
-    const remaining = eventDates.filter(
-      event => event.id !== id,
-    );
-    axios.delete(`${this.myUrl}/${id}`)
-      .then(() => {
-        this.setState({
-          eventDates: remaining,
-        });
-      });
+    const deleteRef = firebase.database().ref(`/eventList/${id}`);
+    deleteRef.remove();
+  }
+
+  postNewEvent = (event, date) => {
+    const postData = {
+      event,
+      date,
+    };
+
+    // Get a key for a new event.
+    const newPostKey = firebase.database().ref().push().key;
+
+    const updates = {};
+    updates[`/dates/${newPostKey}`] = postData;
+
+    firebase.database().ref().update(updates);
   }
 
   render() {
     const {
-      eventDates,
+      eventList,
       currentTime,
-      dateInput,
-      eventInput,
+      date,
+      event,
     } = this.state;
+    const displayEvents = eventList !== [];
     return (
       <div className="container-fluid">
         <div className="header">
           <SearchBar
             onInputChange={this.handleInputChange}
             onFormSubmit={this.handleFormSubmit}
-            dateInput={dateInput}
-            eventInput={eventInput}
+            dateInput={date}
+            eventInput={event}
           />
         </div>
         <div className="wrapper">
           <Time time={currentTime} message="Current time" />
-          <OffsetList
-            offsets={eventDates}
+          {displayEvents && (
+          <EventList
+            eventList={eventList}
             current={currentTime}
             onDelete={this.handleDeleteEvent}
           />
+          )}
         </div>
         <div className="footer">
           <Footer />
