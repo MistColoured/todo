@@ -35,7 +35,6 @@ module.exports = {
         // Options for the loader
         options: {
           presets: [
-            '@babel/stage-3',
             '@babel/env',
             '@babel/react',
           ],
