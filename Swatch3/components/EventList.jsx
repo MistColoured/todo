@@ -9,7 +9,7 @@ class EventList extends Component {
   getDelta = (event, current) => event.diff(current)
 
   render() {
-    const { eventList, currentTime, onDelete } = this.props;
+    const { eventList, current, onDelete } = this.props;
     return (
       <div>{
         eventList.map(event => (
@@ -17,7 +17,7 @@ class EventList extends Component {
             key={event.id}
             event={event}
             onDelete={onDelete}
-            time={this.getDelta(moment(event.date), currentTime)}
+            time={this.getDelta(moment(event.date), current)}
           />
         ))
       }
@@ -29,13 +29,13 @@ class EventList extends Component {
 
 EventList.propTypes = {
   eventList: PropTypes.arrayOf(Object),
-  currentTime: PropTypes.objectOf(PropTypes.string),
+  current: PropTypes.objectOf(PropTypes.string),
   onDelete: PropTypes.func.isRequired,
 };
 
 EventList.defaultProps = {
   eventList: [{}],
-  currentTime: {},
+  current: {},
 };
 
 export default EventList;
