@@ -7,7 +7,7 @@ import TimeUnit from './TimeUnit';
 const Event = ({ time, event: { date, event, id }, onDelete }) => (
   <div className="container text-center">
     <p>
-      {event} ({moment(date).format('ddd, D MMMM YYYY')})
+      {event} ({moment(date).format('ddd, D MMMM YYYY HH:mm')})
       <button id={id} onClick={() => onDelete(id)} className="btn btn-danger">Delete</button>
     </p>
     <div className="card-deck mb-3 text-center">
