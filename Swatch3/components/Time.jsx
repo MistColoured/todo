@@ -1,26 +1,29 @@
 import React from 'react';
-import moment from 'moment';
+import { getSeconds, getMinutes, getHours } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import TimeUnit from './TimeUnit';
 
-const Time = ({ time }) => (
-  <div className="container text-center">
-    <p>The current time is:</p>
-    <div className="card-deck mb-3 text-center">
-      <TimeUnit number={time.hours()} />
-      <TimeUnit number={time.minutes()} />
-      <TimeUnit number={time.seconds()} />
+const Time = ({ time }) => {
+  console.log(typeof time);
+  return (
+    <div className="container text-center">
+      <p>The current time is:</p>
+      <div className="card-deck mb-3 text-center">
+        <TimeUnit number={getHours(time)} />
+        <TimeUnit number={getMinutes(time)} />
+        <TimeUnit number={getSeconds(time)} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Time.propTypes = {
-  time: PropTypes.instanceOf(moment),
+  time: PropTypes.number,
 };
 
 Time.defaultProps = {
-  time: {},
+  time: 0,
 
 };
 

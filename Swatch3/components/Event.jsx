@@ -1,23 +1,26 @@
 import React from 'react';
-import moment from 'moment';
+import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import TimeUnit from './TimeUnit';
 
-const Event = ({ time, event: { date, event, id }, onDelete }) => (
-  <div className="container text-center">
-    <p>
-      {event} ({moment(date).format('ddd, D MMMM YYYY HH:mm')})
-      <button id={id} onClick={() => onDelete(id)} className="btn btn-danger">Delete</button>
-    </p>
-    <div className="card-deck mb-3 text-center">
-      <TimeUnit number={moment.duration(time).asDays()} unit="day" />
-      <TimeUnit number={moment.duration(time).hours()} unit="hour" />
-      <TimeUnit number={moment.duration(time).minutes()} unit="min" />
-      <TimeUnit number={moment.duration(time).seconds()} unit="sec" />
+const Event = ({ time, event: { date, event, id }, onDelete }) => {
+  console.log('timer', time);
+  return (
+    <div className="container text-center">
+      <p>
+        {event} ({format(date, 'DD MMMM YYYY hh:mm:ss')})
+        <button id={id} onClick={() => onDelete(id)} className="btn btn-danger">Delete</button>
+      </p>
+      <div className="card-deck mb-3 text-center">
+        <TimeUnit number={parseInt(time / 86400, 10)} unit="day" />
+        <TimeUnit number={parseInt(time / 3600, 10) % 24} unit="hour" />
+        <TimeUnit number={parseInt(time / 60, 10) % 60} unit="min" />
+        <TimeUnit number={time % 60} unit="sec" />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Event.propTypes = {
   time: PropTypes.number,

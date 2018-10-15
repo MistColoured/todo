@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+// import { format } from 'date-fns';
 import Time from './components/Time';
 import EventList from './components/EventList';
 import SearchBar from './components/SearchBar';
@@ -8,7 +8,9 @@ import firebase, { auth, provider } from './components/firebase';
 
 class App extends Component {
   state = {
-    currentTime: moment(),
+    // currentTime: { hours: '11', minutes: '30', seconds: '1' },
+    currentTime: new Date().setMilliseconds(0),
+    // eventList: [{ id: '34uy3hjk34h15', event: 'Mikeys event', date: '10/16/18 17:30' }],
     eventList: [],
     event: '',
     date: '',
@@ -16,6 +18,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    console.log('toffees');
     auth.onAuthStateChanged((user) => {
       if (user) {
         console.log('user:', user);
@@ -35,6 +38,9 @@ class App extends Component {
             date: val.date,
           });
         });
+        console.log('Sorting...', newState);
+        newState.sort((a, b) => a.date.localeCompare(b.date));
+        console.log('Sorted...', newState);
       }
       this.setState({
         eventList: newState,
@@ -43,7 +49,7 @@ class App extends Component {
 
     this.timerId = setInterval(() => {
       this.setState({
-        currentTime: moment(),
+        currentTime: new Date().setMilliseconds(0),
       });
     }, 1000);
   }
@@ -155,7 +161,7 @@ class App extends Component {
                 {displayEvents && (
                 <EventList
                   eventList={eventList}
-                  current={currentTime}
+                  time={currentTime}
                   onDelete={this.handleDeleteEvent}
                 />
                 )}

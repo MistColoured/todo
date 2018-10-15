@@ -1,7 +1,6 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import { differenceInSeconds } from 'date-fns';
 
 import Event from './Event';
 
@@ -9,7 +8,7 @@ class EventList extends Component {
   getDelta = (event, current) => event.diff(current)
 
   render() {
-    const { eventList, current, onDelete } = this.props;
+    const { eventList, time, onDelete } = this.props;
     return (
       <div>{
         eventList.map(event => (
@@ -17,7 +16,7 @@ class EventList extends Component {
             key={event.id}
             event={event}
             onDelete={onDelete}
-            time={this.getDelta(moment(event.date), current)}
+            time={differenceInSeconds(event.date, time)}
           />
         ))
       }
@@ -29,13 +28,13 @@ class EventList extends Component {
 
 EventList.propTypes = {
   eventList: PropTypes.arrayOf(Object),
-  current: PropTypes.objectOf(PropTypes.string),
+  time: PropTypes.number,
   onDelete: PropTypes.func.isRequired,
 };
 
 EventList.defaultProps = {
   eventList: [{}],
-  current: {},
+  time: 0,
 };
 
 export default EventList;

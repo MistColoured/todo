@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import moment from 'moment';
+// import moment from 'moment';
 import Input from './Input';
 
 export default class SearchBar extends Component {
@@ -18,7 +18,8 @@ export default class SearchBar extends Component {
 
   render() {
     const { dateInput, eventInput } = this.props;
-    const disabled = !moment(dateInput).isValid();
+    // const disabled = !moment(dateInput).isValid();
+    const disabled = false;
     return (
       <div>
         <form
