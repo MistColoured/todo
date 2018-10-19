@@ -1,5 +1,5 @@
 {
-  "name": "environment",
+  "name": "messenger",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Michael Allen",
@@ -46,7 +46,6 @@
     "build": "^0.1.4",
     "date-fns": "^1.29.0",
     "firebase": "^5.5.3",
-    "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

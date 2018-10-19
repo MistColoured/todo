@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import moment from 'moment';
 import Input from './Input';
 
-export default class SearchBar extends Component {
+export default class MessageInput extends Component {
   handleInputChange = (e) => {
     const { onInputChange } = this.props;
     onInputChange(e.target.value, e.target.id);
@@ -17,7 +17,7 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    const { dateInput, eventInput } = this.props;
+    const { recipientInput, messageInput } = this.props;
     // const disabled = !moment(dateInput).isValid();
     const disabled = false;
     return (
@@ -29,18 +29,18 @@ export default class SearchBar extends Component {
         >
 
           <Input
-            label="Event Input"
-            inputText={eventInput}
+            label="User Input"
+            inputText={recipientInput}
             onChange={this.handleInputChange}
-            id="event"
-            placeholder="Name of event"
+            id="recipient"
+            placeholder="User to send to"
           />
           <Input
-            label="Date Input"
-            inputText={dateInput}
+            label="Message Input"
+            inputText={messageInput}
             onChange={this.handleInputChange}
-            id="date"
-            placeholder="dd mmm yyyy"
+            id="message"
+            placeholder="A message"
           />
           <button
             disabled={disabled}
@@ -56,14 +56,14 @@ export default class SearchBar extends Component {
   }
 }
 
-SearchBar.propTypes = {
+MessageInput.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
-  dateInput: PropTypes.string,
-  eventInput: PropTypes.string,
+  recipientInput: PropTypes.string,
+  messageInput: PropTypes.string,
 };
 
-SearchBar.defaultProps = {
-  dateInput: '',
-  eventInput: '',
+MessageInput.defaultProps = {
+  recipientInput: '',
+  messageInput: '',
 };

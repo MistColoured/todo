@@ -1,60 +1,60 @@
 import React, { Component } from 'react';
-// import { format } from 'date-fns';
 import Time from './components/Time';
-import EventList from './components/EventList';
-import SearchBar from './components/SearchBar';
+import MessageList from './components/MessageList';
+import MessageInput from './components/MessageInput';
 import Footer from './components/Footer';
 import firebase, { auth, provider } from './components/firebase';
 
 class App extends Component {
   state = {
     // currentTime: { hours: '11', minutes: '30', seconds: '1' },
-    currentTime: new Date().setMilliseconds(0),
-    // eventList: [{ id: '34uy3hjk34h15', event: 'Mikeys event', date: '10/16/18 17:30' }],
-    eventList: [],
-    event: '',
-    date: '',
+    currentTime: new Date(),
+    // messageList: [{ id: '34uy3hjk34h15', event: 'Mike event', date: '10/16/18 17:30' }],
+    messageList: [],
+    recipient: '',
+    message: '',
     user: null,
   }
 
   componentDidMount = () => {
-    console.log('toffees');
+    // Add listener to auth user logging
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('user:', user);
         this.setState({ user });
+        const eventRef = firebase.database().ref(`users/${user.uid}/messageList`);
+        eventRef.on('value', (snapshot) => {
+          const newState = [];
+          if (snapshot.exists()) {
+            const items = snapshot.val();
+            Object.entries(items).forEach(([key, val]) => {
+              newState.push({
+                id: key,
+                event: val.event,
+                date: val.date,
+              });
+            });
+            // TODO Probably use a library to sort the data?
+            // console.log('Sorting...', newState);
+            // newState.sort((a, b) => a.date.localeCompare(b.date));
+            // console.log('Sorted...', newState);
+          }
+          this.setState({
+            messageList: newState,
+          });
+        });
       }
     });
 
-    const eventRef = firebase.database().ref('eventList');
-    eventRef.on('value', (snapshot) => {
-      const newState = [];
-      if (snapshot.exists()) {
-        const items = snapshot.val();
-        Object.entries(items).forEach(([key, val]) => {
-          newState.push({
-            id: key,
-            event: val.event,
-            date: val.date,
-          });
-        });
-        console.log('Sorting...', newState);
-        newState.sort((a, b) => a.date.localeCompare(b.date));
-        console.log('Sorted...', newState);
-      }
-      this.setState({
-        eventList: newState,
-      });
-    });
 
     this.timerId = setInterval(() => {
       this.setState({
-        currentTime: new Date().setMilliseconds(0),
+        currentTime: new Date(),
       });
     }, 1000);
   }
 
   handleInputChange = (inputText, id) => {
+    console.log('button', inputText, id);
     this.setState({
       [id]: inputText,
     });
@@ -62,52 +62,36 @@ class App extends Component {
 
   handleFormSubmit = () => {
     const {
-      date, event, eventList, user,
+      recipient, message, messageList, user,
     } = this.state;
-    const newPostKey = firebase.database().ref('eventList').push().key;
+    const newPostKey = firebase.database().ref(`users/${user.uid}/messageList`).push().key;
     const postObject = {
       id: user.email,
-      date,
-      event,
+      recipient,
+      message,
     };
     const eventObjectWrapper = {};
     eventObjectWrapper[newPostKey] = postObject;
 
-    firebase.database().ref('eventList').update(eventObjectWrapper)
+    firebase.database().ref(`users/${user.uid}/messageList`).update(eventObjectWrapper)
       .then(() => {
-        eventList.push({
+        messageList.push({
           id: newPostKey,
-          date,
-          event,
+          recipient,
+          message,
         });
         this.setState({
-          eventList,
-          date: '',
-          event: '',
+          messageList,
+          recipient: '',
+          message: '',
         });
       });
   }
 
   handleDeleteEvent = (id) => {
-    const deleteRef = firebase.database().ref(`/eventList/${id}`);
+    const deleteRef = firebase.database().ref(`/messageList/${id}`);
     deleteRef.remove();
   }
-
-  // postNewEvent = (event, date) => {
-  //   const postData = {
-  //     event,
-  //     date,
-  //   };
-
-  //   // Get a key for a new event.
-  //   const newPostKey = firebase.database().ref().push().key;
-
-  //   const updates = {};
-  //   updates[`/dates/${newPostKey}`] = postData;
-
-  //   firebase.database().ref().update(updates);
-  // }
-
 
   login = () => {
     auth.signInWithPopup(provider)
@@ -130,13 +114,13 @@ class App extends Component {
 
   render() {
     const {
-      eventList,
+      messageList,
       currentTime,
-      date,
-      event,
+      recipient,
+      message,
       user,
     } = this.state;
-    const displayEvents = eventList !== [];
+    const displayEvents = messageList !== [];
     return (
       <div className="container-fluid">
         <div>
@@ -149,20 +133,18 @@ class App extends Component {
           ? (
             <div>
               <div className="header">
-                <SearchBar
+                <MessageInput
                   onInputChange={this.handleInputChange}
                   onFormSubmit={this.handleFormSubmit}
-                  dateInput={date}
-                  eventInput={event}
+                  recipientInput={recipient}
+                  messageInput={message}
                 />
               </div>
               <div className="wrapper">
                 <Time time={currentTime} message="Current time" />
                 {displayEvents && (
-                <EventList
-                  eventList={eventList}
-                  time={currentTime}
-                  onDelete={this.handleDeleteEvent}
+                <MessageList
+                  messageList={messageList}
                 />
                 )}
               </div>
