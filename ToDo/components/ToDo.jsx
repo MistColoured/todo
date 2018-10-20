@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Message = ({ message }) => (
+const ToDo = ({ todo }) => (
   <div className="container text-center">
 
     <div className="card-deck mb-3 text-center">
-      message{message}
+      todo{todo}
     </div>
   </div>
 );
 
-Message.propTypes = {
-  message: PropTypes.string,
+ToDo.propTypes = {
+  todo: PropTypes.string,
   event: PropTypes.shape({
     event: PropTypes.string,
     date: PropTypes.string,
@@ -19,12 +19,12 @@ Message.propTypes = {
   }),
 };
 
-Message.defaultProps = {
-  message: "I'm a dummy message",
+ToDo.defaultProps = {
+  todo: "I'm a dummy todo",
   event: PropTypes.shape({
     event: '',
     date: '',
     id: '',
   }),
 };
-export default Message;
+export default ToDo;

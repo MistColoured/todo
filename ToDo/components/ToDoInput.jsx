@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import moment from 'moment';
 import Input from './Input';
 
-export default class MessageInput extends Component {
+export default class ToDoInput extends Component {
   handleInputChange = (e) => {
     const { onInputChange } = this.props;
     onInputChange(e.target.value, e.target.id);
@@ -17,7 +17,7 @@ export default class MessageInput extends Component {
   }
 
   render() {
-    const { recipientInput, messageInput } = this.props;
+    const { todoInput } = this.props;
     // const disabled = !moment(dateInput).isValid();
     const disabled = false;
     return (
@@ -30,17 +30,10 @@ export default class MessageInput extends Component {
 
           <Input
             label="User Input"
-            inputText={recipientInput}
+            inputText={todoInput}
             onChange={this.handleInputChange}
-            id="recipient"
+            id="todo"
             placeholder="User to send to"
-          />
-          <Input
-            label="Message Input"
-            inputText={messageInput}
-            onChange={this.handleInputChange}
-            id="message"
-            placeholder="A message"
           />
           <button
             disabled={disabled}
@@ -56,14 +49,12 @@ export default class MessageInput extends Component {
   }
 }
 
-MessageInput.propTypes = {
+ToDoInput.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
-  recipientInput: PropTypes.string,
-  messageInput: PropTypes.string,
+  todoInput: PropTypes.string,
 };
 
-MessageInput.defaultProps = {
-  recipientInput: '',
-  messageInput: '',
+ToDoInput.defaultProps = {
+  todoInput: '',
 };
