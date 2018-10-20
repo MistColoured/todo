@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import WebFont from 'webfontloader';
-import App from './Messenger';
+import App from './ToDo';
 
 // import 'semantic-ui-css/semantic.min.css';
-import './Messenger/styles/style.scss';
+import './ToDo/styles/style.scss';
 
 // WebFont.load({
 //   google: {
