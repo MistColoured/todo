@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import Time from './components/Time';
 import ToDoList from './components/ToDoList';
 import ToDoInput from './components/ToDoInput';
-import Footer from './components/Footer';
 import firebase, { auth, provider } from './components/firebase';
 
 class App extends Component {
   state = {
-    currentTime: new Date(),
     todoList: [],
     todo: '',
     embedLevel: '',
@@ -49,18 +46,15 @@ class App extends Component {
 
   clickToDo = (id) => {
     const { embedLevel } = this.state;
-    // console.log('Clicked an event', embedLevel.concat('/', id));
     this.setState({
       embedLevel: embedLevel.concat('/', id),
     },
     () => this.loadData());
-    console.log('Data loaded');
   }
 
-  handleInputChange = (inputText, id) => {
-    // console.log('button', inputText, id);
+  handleInputChange = (inputText) => {
     this.setState({
-      [id]: inputText,
+      todo: inputText,
     });
   }
 
@@ -120,40 +114,29 @@ class App extends Component {
     } = this.state;
     const displayEvents = todoList !== [];
     return (
-      <div className="container-fluid">
-        <div>
-          {user
-            ? <button onClick={this.logout}>Log Out {user.email}</button>
-            : <button onClick={this.login}>Log In</button>
-  }
-        </div>
-        { user
+      <div>
+        {user
           ? (
             <div>
-              <div className="header">
-                <ToDoInput
-                  onInputChange={this.handleInputChange}
-                  onFormSubmit={this.handleFormSubmit}
-                  todoInput={todo}
-                />
-              </div>
-              <div className="wrapper">
-                {displayEvents && (
+              <button onClick={this.logout}>Log Out {user.email}</button>
+
+              <ToDoInput
+                onInputChange={this.handleInputChange}
+                onFormSubmit={this.handleFormSubmit}
+                todoInput={todo}
+              />
+
+              {displayEvents && (
                 <ToDoList
                   todoList={todoList}
                   clickToDo={this.clickToDo}
                 />
-                )}
-              </div>
-              <div className="footer">
-                <Footer />
-              </div>
+              )}
             </div>
           )
-          : <div><p>Need to log in</p></div>
+          : <button onClick={this.login}>Log In</button>
         }
       </div>
-
     );
   }
 }

@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// import moment from 'moment';
-import Input from './Input';
-
 export default class ToDoInput extends Component {
   handleInputChange = (e) => {
     const { onInputChange } = this.props;
-    onInputChange(e.target.value, e.target.id);
+    onInputChange(e.target.value);
   }
 
   handleFormSubmit = (e) => {
@@ -18,8 +15,6 @@ export default class ToDoInput extends Component {
 
   render() {
     const { todoInput } = this.props;
-    // const disabled = !moment(dateInput).isValid();
-    const disabled = false;
     return (
       <div>
         <form
@@ -27,24 +22,18 @@ export default class ToDoInput extends Component {
           onSubmit={this.handleFormSubmit}
           autoComplete="off"
         >
-
-          <Input
-            label="User Input"
-            inputText={todoInput}
+          <input
+            value={todoInput}
             onChange={this.handleInputChange}
+            type="text"
             id="todo"
-            placeholder="User to send to"
+            placeholder="Type something here"
           />
-          <button
-            disabled={disabled}
-            className={disabled ? 'btn btn-danger' : 'btn btn-primary'}
-            type="submit"
-          >
-            <i className={disabled ? 'fas fa-times' : 'fas fa-check'} />
+          <button className="btn btn-primary" type="submit">
+            <i className="fas fa-check" />
           </button>
         </form>
       </div>
-
     );
   }
 }

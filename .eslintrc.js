@@ -22,6 +22,5 @@ module.exports = {
     // Permanent preferences
     'no-nested-ternary': 'off',
     'no-console': 'off',
-    'jsx-a11y/label-has-for': 'off',
   }
 }

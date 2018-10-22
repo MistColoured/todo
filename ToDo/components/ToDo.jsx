@@ -15,6 +15,7 @@ ToDo.propTypes = {
     todo: PropTypes.string,
     id: PropTypes.string,
   }),
+  clickToDo: PropTypes.func.isRequired,
 };
 
 ToDo.defaultProps = {
