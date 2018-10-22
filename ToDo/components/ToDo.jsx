@@ -1,30 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ToDo = ({ todo }) => (
-  <div className="container text-center">
-
-    <div className="card-deck mb-3 text-center">
-      todo{todo}
-    </div>
+const ToDo = ({ todo: { todo, id }, clickToDo }) => (
+  <div>
+    <button className="todoButton" id={id} onClick={() => clickToDo(id)}>
+      {todo}
+    </button>
   </div>
+
 );
 
 ToDo.propTypes = {
-  todo: PropTypes.string,
-  event: PropTypes.shape({
-    event: PropTypes.string,
-    date: PropTypes.string,
+  todo: PropTypes.shape({
+    todo: PropTypes.string,
     id: PropTypes.string,
   }),
 };
 
 ToDo.defaultProps = {
-  todo: "I'm a dummy todo",
-  event: PropTypes.shape({
-    event: '',
-    date: '',
-    id: '',
+  todo: PropTypes.shape({
+    todo: 'I am a dummy todo',
+    id: 'I am a dummy id',
   }),
 };
+
 export default ToDo;
