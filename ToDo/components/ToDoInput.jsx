@@ -16,7 +16,7 @@ export default class ToDoInput extends Component {
   render() {
     const { todoInput } = this.props;
     return (
-      <div>
+      <div className="todoButton">
         <form
           className="form-inline"
           onSubmit={this.handleFormSubmit}
