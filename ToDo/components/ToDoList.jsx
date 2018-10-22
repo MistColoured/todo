@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 
 import ToDo from './ToDo';
 
-const ToDoList = ({ todoList }) => (
+const ToDoList = ({ todoList, clickToDo }) => (
 
   <div>{
-        todoList.map(todo => (
-          <ToDo
-            key={todo.id}
-            todo={todo.todo}
-          />
-        ))
+        todoList.map((todo) => {
+          console.log(todo.id);
+          return (
+            <ToDo
+              key={todo.id}
+              todo={todo}
+              clickToDo={clickToDo}
+            />
+          );
+        })
       }
   </div>
 
@@ -19,6 +23,7 @@ const ToDoList = ({ todoList }) => (
 
 ToDoList.propTypes = {
   todoList: PropTypes.arrayOf(Object),
+  clickToDo: PropTypes.func.isRequired,
 };
 
 ToDoList.defaultProps = {
