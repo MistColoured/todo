@@ -7,12 +7,10 @@ import firebase, { auth, provider } from './components/firebase';
 
 class App extends Component {
   state = {
-    // currentTime: { hours: '11', minutes: '30', seconds: '1' },
     currentTime: new Date(),
-    // messageList: [{ id: '34uy3hjk34h15', event: 'Mike event', date: '10/16/18 17:30' }],
     todoList: [],
     todo: '',
-    // message: '',
+    embedLevel: '',
     user: null,
   }
 
@@ -21,7 +19,8 @@ class App extends Component {
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
-        const eventRef = firebase.database().ref(`users/${user.uid}/todoList`);
+        const { uid } = user;
+        const eventRef = firebase.database().ref(`users/${uid}/todoList`);
         eventRef.on('value', (snapshot) => {
           const newState = [];
           if (snapshot.exists()) {
@@ -29,8 +28,7 @@ class App extends Component {
             Object.entries(items).forEach(([key, val]) => {
               newState.push({
                 id: key,
-                event: val.event,
-                date: val.date,
+                todo: val.todo,
               });
             });
             // TODO Probably use a library to sort the data?
@@ -39,22 +37,26 @@ class App extends Component {
             // console.log('Sorted...', newState);
           }
           this.setState({
-            messageList: newState,
+            todoList: newState,
           });
         });
       }
     });
 
 
-    this.timerId = setInterval(() => {
-      this.setState({
-        currentTime: new Date(),
-      });
-    }, 1000);
+    // this.timerId = setInterval(() => {
+    //   this.setState({
+    //     currentTime: new Date(),
+    //   });
+    // }, 1000);
+  }
+
+  clickToDo = (id) => {
+    console.log('Clicked an event', id);
   }
 
   handleInputChange = (inputText, id) => {
-    console.log('button', inputText, id);
+    // console.log('button', inputText, id);
     this.setState({
       [id]: inputText,
     });
@@ -62,11 +64,10 @@ class App extends Component {
 
   handleFormSubmit = () => {
     const {
-      todo, todoList, user,
+      todo, todoList, user, embedLevel,
     } = this.state;
-    const newPostKey = firebase.database().ref(`users/${user.uid}/todoList`).push().key;
+    const newPostKey = firebase.database().ref(`users/${user.uid}/todoList${embedLevel}`).push().key;
     const postObject = {
-      id: user.email,
       todo,
     };
     const eventObjectWrapper = {};
@@ -140,6 +141,7 @@ class App extends Component {
                 {displayEvents && (
                 <ToDoList
                   todoList={todoList}
+                  clickToDo={this.clickToDo}
                 />
                 )}
               </div>
