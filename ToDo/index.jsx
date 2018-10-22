@@ -19,27 +19,7 @@ class App extends Component {
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
-        const { uid } = user;
-        const eventRef = firebase.database().ref(`users/${uid}/todoList`);
-        eventRef.on('value', (snapshot) => {
-          const newState = [];
-          if (snapshot.exists()) {
-            const items = snapshot.val();
-            Object.entries(items).forEach(([key, val]) => {
-              newState.push({
-                id: key,
-                todo: val.todo,
-              });
-            });
-            // TODO Probably use a library to sort the data?
-            // console.log('Sorting...', newState);
-            // newState.sort((a, b) => a.date.localeCompare(b.date));
-            // console.log('Sorted...', newState);
-          }
-          this.setState({
-            todoList: newState,
-          });
-        });
+        this.loadData();
       }
     });
 
@@ -51,8 +31,41 @@ class App extends Component {
     // }, 1000);
   }
 
+  loadData = () => {
+    const { user, embedLevel } = this.state;
+    const eventRef = firebase.database().ref(`users/${user.uid}/todoList/${embedLevel}`);
+    eventRef.once('value', (snapshot) => {
+      const newState = [];
+      if (snapshot.exists()) {
+        const items = snapshot.val();
+        console.log('items', items);
+        Object.entries(items).forEach(([key, val]) => {
+          if (key !== 'todo') {
+            newState.push({
+              id: key,
+              todo: val.todo,
+            });
+          }
+        });
+        // TODO Probably use a library to sort the data?
+        // console.log('Sorting...', newState);
+        // newState.sort((a, b) => a.date.localeCompare(b.date));
+        // console.log('Sorted...', newState);
+      }
+      this.setState({
+        todoList: newState,
+      });
+    });
+  }
+
   clickToDo = (id) => {
-    console.log('Clicked an event', id);
+    const { embedLevel } = this.state;
+    // console.log('Clicked an event', embedLevel.concat('/', id));
+    this.setState({
+      embedLevel: embedLevel.concat('/', id),
+    },
+    () => this.loadData());
+    console.log('Data loaded');
   }
 
   handleInputChange = (inputText, id) => {
@@ -73,7 +86,7 @@ class App extends Component {
     const eventObjectWrapper = {};
     eventObjectWrapper[newPostKey] = postObject;
 
-    firebase.database().ref(`users/${user.uid}/todoList`).update(eventObjectWrapper)
+    firebase.database().ref(`users/${user.uid}/todoList/${embedLevel}`).update(eventObjectWrapper)
       .then(() => {
         todoList.push({
           id: newPostKey,
