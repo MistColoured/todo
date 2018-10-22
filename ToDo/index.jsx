@@ -22,13 +22,6 @@ class App extends Component {
         this.loadData();
       }
     });
-
-
-    // this.timerId = setInterval(() => {
-    //   this.setState({
-    //     currentTime: new Date(),
-    //   });
-    // }, 1000);
   }
 
   loadData = () => {
@@ -47,10 +40,6 @@ class App extends Component {
             });
           }
         });
-        // TODO Probably use a library to sort the data?
-        // console.log('Sorting...', newState);
-        // newState.sort((a, b) => a.date.localeCompare(b.date));
-        // console.log('Sorted...', newState);
       }
       this.setState({
         todoList: newState,
@@ -126,7 +115,6 @@ class App extends Component {
   render() {
     const {
       todoList,
-      currentTime,
       todo,
       user,
     } = this.state;
@@ -150,7 +138,6 @@ class App extends Component {
                 />
               </div>
               <div className="wrapper">
-                <Time time={currentTime} message="Current time" />
                 {displayEvents && (
                 <ToDoList
                   todoList={todoList}
