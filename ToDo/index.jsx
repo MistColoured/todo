@@ -58,6 +58,16 @@ class App extends Component {
     });
   }
 
+upLevel = () => {
+  const { embedLevel } = this.state;
+  console.log('Up level');
+  const re = /.*(?=\/)/;
+  this.setState({
+    embedLevel: embedLevel.match(re)[0],
+  },
+  () => this.loadData());
+}
+
   handleFormSubmit = () => {
     const {
       todo, todoList, user, embedLevel,
@@ -111,22 +121,26 @@ class App extends Component {
       todoList,
       todo,
       user,
+      embedLevel,
     } = this.state;
-    const displayEvents = todoList !== [];
+    const displayTodos = todoList !== [];
+    const disableUp = embedLevel === '';
     return (
       <div>
         {user
           ? (
-            <div>
-              <button onClick={this.logout}>Log Out {user.email}</button>
+            <div className="wrapper">
+
+              <button className="todoButton" onClick={this.logout}>Log Out {user.email}</button>
+
 
               <ToDoInput
                 onInputChange={this.handleInputChange}
                 onFormSubmit={this.handleFormSubmit}
                 todoInput={todo}
               />
-
-              {displayEvents && (
+              <button disabled={disableUp} onClick={this.upLevel} className="todoButton">Up one level</button>
+              {displayTodos && (
                 <ToDoList
                   todoList={todoList}
                   clickToDo={this.clickToDo}
